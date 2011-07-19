@@ -12,6 +12,8 @@ Configuration:
 
 Run the reporter.py script with one parameter - CSV file downloaded from Android Market sales reports.
 
+NOTE - for each app, there are 2 rows - one for sales in countries with VAT, and second in countries WITHOUT VAT.
+
 Send the feeback to jindra@tappytaps.com, @sarsonj.
 
 Tested on German Google Checout account, with TAXes set to EU VAT taxes and rest of the word set "no taxes".
