@@ -10,7 +10,7 @@ Configuration:
 
 - open config.py and add your apps there. It is simple AndroidMarket bundle id / your app name key value hash.
 
-Run the script with one parameter - CSV file downloaded from Android Market sales reports.
+Run the reporter.py script with one parameter - CSV file downloaded from Android Market sales reports.
 
 Send the feeback to jindra@tappytaps.com, @sarsonj.
 
