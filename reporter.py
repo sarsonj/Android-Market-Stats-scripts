@@ -63,11 +63,8 @@ def processStats(fileName):
                     exRate = float(row[13]) 
                 
                 toChange["vat"] += float(row[10]) * exRate 
-#                print "Before %f" % appData["charged"]
-#                print "App: %s, VAT: %s, cena NC: %s, currency: %s, cena Kc %f" % (row[27],row[9],row[4], row[3], convertToCzk((float(row[4]) - float(row[9])) * .7, row[3], kurzy))
                 toChange["charged"] += float(row[14])
                 toChange["google"] += float(row[9]) * exRate - float(row[14])
-#                print "Prirustek %f" % appData["charged"]
         counter += 1
     # display results
     print "Name;Items;Charged;VAT;Profit;Google"
@@ -75,28 +72,11 @@ def processStats(fileName):
         dict = appsStats[appId]
         name = appNames[appId]
         for typ in ("withvat", "nonvat"):
-            
             print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["vat"] + dict[typ]["charged"] + dict[typ]["google"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
-
-def getKurzForDate(date):
-    if not date in kurzy:
-        # load kurzy
-        file = urllib2.urlopen("http://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt?date=%s" % date)
-        content = file.read()
-        csvLines = csv.reader(content.split(os.linesep), delimiter='|')
-        dayData = {}
-        counter = 0;
-        for row in csvLines:
-            if (len(row) > 4 and counter >= 2):
-                dayData[row[3]] = float(row[4].replace(",",".")) / float(row[2])
-                kurzy[date] = dayData 
-            counter += 1
-    return kurzy[date]
 
 def main():
     if len(sys.argv) == 1:
         print "No filename specified"
-        processStats("ordersjun.csv")
     else:
         fileToImport = sys.argv[1]
         processStats(fileToImport)
