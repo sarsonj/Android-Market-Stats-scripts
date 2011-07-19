@@ -1,16 +1,17 @@
-This simple python scripts helps to make reports for EU accounting from Android Market reports. What is can do:
+This simple python scripts helps you to make reports for EU accounting from Android Market reports. What it can do:
 
 - count with VAT and without VAT sales for every app
 - count, how much you should pay for VAT
+- works with conversion rates provided by google in report, convert everything to your main Google Checkout currency
 
 Output is in CSV, written to standard output. Has some fragments from older version, so that not everything is used :-) (will clean up it later).
 
 Configuration:
 
-- there are 2 hashes, that you have to change. appNames - enter app names there and give unique id to each app. In second hash, configure, which appID is for Android bundle ID. App supports multible bundle IDs per app.
+- open config.py and add your apps there. It is simple AndroidMarket bundle id / your app name key value hash.
 
 Run the script with one parameter - CSV file downloaded from Android Market sales reports.
 
-Send feeback to jindra@tappytaps.com, @sarsonj.
+Send the feeback to jindra@tappytaps.com, @sarsonj.
 
 Tested on German Google Checout account, with TAXes set to EU VAT taxes and rest of the word set "no taxes".

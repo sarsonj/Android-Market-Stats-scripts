@@ -8,28 +8,18 @@ import csv
 import os
 import time
 
+from config import *
+
 
 kurzy = {}
 appsStats = {}
 
 #configuration - fill your apps info here
 
-appNames = {
-            "babyam": "Baby Monitor Alarm",
-            "geotag": "Geotag Photos Pro",
-            "enumbers": "E Numbers Calc"
-            }
-
-nameToAppId = {
-             "com.tappytaps.android.babymonitoralarm.full": "babyam",             
-             "com.tappytaps.android.geotagphotospro": "geotag",
-             "com.tappytaps.android.enumbers.full": "enumbers",
-             }
-
 
 def getDataForApp(appName):
-    if appName in nameToAppId:
-        appId = nameToAppId[appName]
+    if appName in apps:
+        appId = appName
         if not appId in appsStats:
             appsStats[appId] = {"withvat": {"downloads": 0, "vat": 0, "charged": 0, "google": 0}, "nonvat":{"downloads": 0, "vat": 0, "charged": 0, "google": 0}} 
         return appsStats[appId]
@@ -38,9 +28,6 @@ def getDataForApp(appName):
         sys.exit()
         return None    
         
-def convertToCzk(amount, currency, table):
-    return float(amount) * table[currency]
-    
 
 def processStats(fileName):
     # loads CSV with stats
@@ -70,7 +57,7 @@ def processStats(fileName):
     print "Name;Items;Charged;VAT;Profit;Google"
     for appId in appsStats:
         dict = appsStats[appId]
-        name = appNames[appId]
+        name = apps[appId]
         for typ in ("withvat", "nonvat"):
             print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["vat"] + dict[typ]["charged"] + dict[typ]["google"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
 
