@@ -2,11 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import getopt
-import urllib2
 import csv
-import os
-import time
 
 from config import *
 
@@ -51,7 +47,9 @@ def processStats(fileName):
                 
                 toChange["vat"] += float(row[10]) * exRate 
                 toChange["charged"] += float(row[14])
-                toChange["google"] += float(row[9]) * exRate - float(row[14])
+                price = row[9]
+                price = price.replace(",","")
+                toChange["google"] += float(price) * exRate - float(row[14])
         counter += 1
     # display results
     print "Name;Items;Charged;VAT;Profit;Google"

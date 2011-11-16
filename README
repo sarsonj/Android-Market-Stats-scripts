@@ -1,5 +1,8 @@
 This simple python scripts helps you to make reports for EU accounting from Android Market reports. What it can do:
 
+Update Nov 2011:
+- bugfix, script filed on Korean currency processing
+
 - count with VAT and without VAT sales for every app
 - count, how much you should pay for VAT
 - works with conversion rates provided by google in report, convert everything to your main Google Checkout currency
