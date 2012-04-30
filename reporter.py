@@ -30,7 +30,7 @@ def processStats(fileName):
     csvData = csv.reader(open(fileName, 'r'))
     counter = 0
     for row in csvData:
-        if counter <> 0:
+        if row[0][:5].isdigit():
             appData = getDataForApp(row[7])
             if (appData <> None):
     
