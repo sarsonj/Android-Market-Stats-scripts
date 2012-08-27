@@ -34,7 +34,7 @@ def processStats(fileName):
             appData = getDataForApp(row[7])
             if (appData <> None):
     
-                vat = float(row[10])
+                vat = float(row[12])
                 
                 if (vat <> 0):
                     toChange =appData ["withvat"] 
@@ -42,14 +42,17 @@ def processStats(fileName):
                     toChange =appData ["nonvat"]
                 toChange["downloads"] += 1
                 exRate = 1
-                if row[13] != "":
-                    exRate = float(row[13]) 
+                if row[15] != "":
+                    exRate = float(row[15]) 
                 
-                toChange["vat"] += float(row[10]) * exRate 
-                toChange["charged"] += float(row[14])
-                price = row[9]
+                toChange["vat"] += float(row[12]) * exRate 
+                toChange["charged"] += float(row[16])
+                price = row[11]
                 price = price.replace(",","")
-                toChange["google"] += float(price) * exRate - float(row[14])
+                if len(row[15]) == 0:
+                    row[15] = 0 
+                                           
+                toChange["google"] += float(price) * exRate - float(row[15])
         counter += 1
     # display results
     print "Name;Items;Charged;VAT;Profit;Google"
