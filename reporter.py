@@ -46,27 +46,19 @@ def processStats(fileName):
                 if row[15] != "":
                     exRate = float(row[15]) 
                 vat = float(row[12]) * exRate
-                if NEW_VAT_PROCESSING:
-                    toChange["vat"] += vat * 0.7
-                    toChange["charged"] += float(row[16]) - vat * 0.7
-                else:
-                    toChange["vat"] += vat 
-                    toChange["charged"] += float(row[16]) - vat
-                    
-                
-                
+                recievedWithoutVAT = float(row[16]) - vat
+
+                toChange["vat"] += vat 
+                toChange["charged"] += recievedWithoutVAT
                                
                 price = row[11]
                 price = price.replace(",","")
                 if len(row[15]) == 0:
                     row[15] = 0 
-                if NEW_VAT_PROCESSING:
-                    toChange["google"] += (exRate * float(price)) * 0.3 + vat * 0.3
-                else:
-                    toChange["google"] += (exRate * float(price)) * 0.3
+                toChange["google"] += recievedWithoutVAT * (3.0/7.0)
         counter += 1
     # display results
-    print "Name;Items;Charged (inc. VAT and Google provision);VAT (our part);Profit (exc. VAT);Google (incl. Google part VAT)"
+    print "Name;Items;Charged (inc. VAT and Google provision);VAT;Profit (exc. VAT);Google part"
     for appId in appsStats:
         dict = appsStats[appId]
         name = apps[appId]
