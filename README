@@ -1,5 +1,11 @@
 This simple python scripts helps you to make reports for EU accounting from Android Market reports. What it can do:
 
+!! NOTE: Google changed how VAT is processed from Jun 2012. Till May 2012 VAT for whole product was included in payment from Google.
+Means you have to pay VAT for whole app. From Jun 2012 this CHANGED! Now Google pays 30% of VAT, you have to pay VAT only from your
+70% that you recieve from Google.
+
+Script can handle both calculations, just set NEW_VAT_PROCESSING = False if you want to calculate for older reports. 
+
 Update Nov 2012:
 - bugfix to correctly calculate according to new reports format
 

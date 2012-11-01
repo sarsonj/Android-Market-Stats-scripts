@@ -6,6 +6,7 @@ import csv
 
 from config import *
 
+NEW_VAT_PROCESSING = True
 
 kurzy = {}
 appsStats = {}
@@ -45,14 +46,24 @@ def processStats(fileName):
                 if row[15] != "":
                     exRate = float(row[15]) 
                 vat = float(row[12]) * exRate
-                toChange["vat"] += vat 
-                toChange["charged"] += float(row[16]) - vat               
+                if NEW_VAT_PROCESSING:
+                    toChange["vat"] += vat * 0.7
+                    toChange["charged"] += float(row[16]) - vat * 0.7
+                else:
+                    toChange["vat"] += vat 
+                    toChange["charged"] += float(row[16]) - vat
+                    
+                
+                
+                               
                 price = row[11]
                 price = price.replace(",","")
                 if len(row[15]) == 0:
                     row[15] = 0 
-                                           
-                toChange["google"] += (float(row[16]) - vat) * 0.3 
+                if NEW_VAT_PROCESSING:
+                    toChange["google"] += (exRate * float(price)) * 0.3 + vat * 0.3
+                else:
+                    toChange["google"] += (exRate * float(price)) * 0.3
         counter += 1
     # display results
     print "Name;Items;Charged (inc. VAT and Google provision);VAT;Profit (exc. VAT);Google"
@@ -60,7 +71,7 @@ def processStats(fileName):
         dict = appsStats[appId]
         name = apps[appId]
         for typ in ("withvat", "nonvat"):
-            print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["charged"] + dict[typ]["google"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
+            print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["charged"] + dict[typ]["google"] + dict[typ]["vat"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
 
 def main():
     if len(sys.argv) == 1:
