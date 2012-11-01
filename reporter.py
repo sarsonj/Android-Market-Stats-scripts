@@ -66,7 +66,7 @@ def processStats(fileName):
                     toChange["google"] += (exRate * float(price)) * 0.3
         counter += 1
     # display results
-    print "Name;Items;Charged (inc. VAT and Google provision);VAT;Profit (exc. VAT);Google"
+    print "Name;Items;Charged (inc. VAT and Google provision);VAT (our part);Profit (exc. VAT);Google (incl. Google part VAT)"
     for appId in appsStats:
         dict = appsStats[appId]
         name = apps[appId]
