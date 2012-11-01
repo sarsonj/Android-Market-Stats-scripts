@@ -44,23 +44,23 @@ def processStats(fileName):
                 exRate = 1
                 if row[15] != "":
                     exRate = float(row[15]) 
-                
-                toChange["vat"] += float(row[12]) * exRate 
-                toChange["charged"] += float(row[16])
+                vat = float(row[12]) * exRate
+                toChange["vat"] += vat 
+                toChange["charged"] += float(row[16]) - vat               
                 price = row[11]
                 price = price.replace(",","")
                 if len(row[15]) == 0:
                     row[15] = 0 
                                            
-                toChange["google"] += float(price) * exRate - float(row[15])
+                toChange["google"] += (float(row[16]) - vat) * 0.3 
         counter += 1
     # display results
-    print "Name;Items;Charged;VAT;Profit;Google"
+    print "Name;Items;Charged (inc. VAT and Google provision);VAT;Profit (exc. VAT);Google"
     for appId in appsStats:
         dict = appsStats[appId]
         name = apps[appId]
         for typ in ("withvat", "nonvat"):
-            print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["vat"] + dict[typ]["charged"] + dict[typ]["google"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
+            print "%s;%d;%f;%f;%f;%f" % (name, dict[typ]["downloads"],dict[typ]["charged"] + dict[typ]["google"], dict[typ]["vat"], dict[typ]["charged"], dict[typ]["google"])
 
 def main():
     if len(sys.argv) == 1:
