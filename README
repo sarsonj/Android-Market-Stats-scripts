@@ -1,5 +1,8 @@
 This simple python scripts helps you to make reports for EU accounting from Android Market reports. What it can do:
 
+Update Nov 2012:
+- bugfix to correctly calculate according to new reports format
+
 Update Nov 2011:
 - bugfix, script filed on Korean currency processing
 
